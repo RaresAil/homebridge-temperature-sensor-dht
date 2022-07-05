@@ -3,7 +3,7 @@ import dhtSensor from 'node-dht-sensor';
 
 import { Config } from './config';
 
-dhtSensor.setMaxRetries(2);
+dhtSensor.setMaxRetries(10);
 
 export class Sensor {
   private fails = 0;
@@ -24,18 +24,24 @@ export class Sensor {
     private readonly api: API,
     private readonly config: Config
   ) {
-    dhtSensor.promises.initialize(this.config.model, this.config.pin);
+    try {
+      dhtSensor.promises.initialize(this.config.model, this.config.pin);
 
-    this.temperatureSensorService
-      .getCharacteristic(this.Characteristic.CurrentTemperature)
-      .onGet(this.getCurrentTemperature.bind(this));
+      this.temperatureSensorService
+        .getCharacteristic(this.Characteristic.CurrentTemperature)
+        .onGet(this.getCurrentTemperature.bind(this));
 
-    this.humiditySensorService
-      .getCharacteristic(this.Characteristic.CurrentRelativeHumidity)
-      .onGet(this.getCurrentHumidity.bind(this));
+      this.humiditySensorService
+        .getCharacteristic(this.Characteristic.CurrentRelativeHumidity)
+        .onGet(this.getCurrentHumidity.bind(this));
 
-    this.updateData();
-    setInterval(this.updateData.bind(this), 30 * 1000);
+      this.updateData();
+      setInterval(this.updateData.bind(this), 10 * 1000);
+    } catch (error) {
+      this.log.error(
+        (error as { message: string })?.message ?? (error as string)
+      );
+    }
   }
 
   getServices() {
@@ -57,13 +63,18 @@ export class Sensor {
         this.config.pin
       );
 
+      if (this.fails > 0) {
+        this.log.info(`Failed ${this.fails} times`);
+      }
+
       this.temperature =
         temperature < -270 ? -270 : temperature > 100 ? 100 : temperature;
       this.humidity = humidity < 0 ? 0 : humidity > 100 ? 100 : humidity;
       this.fails = 0;
     } catch (error) {
       this.fails++;
-      if (this.fails >= 3) {
+
+      if (this.fails === 3) {
         this.log.error(
           (error as { message: string })?.message ?? (error as string)
         );

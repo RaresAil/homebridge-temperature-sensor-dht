@@ -1,7 +1,7 @@
 {
   "displayName": "Temperature Accessory DHT",
   "name": "homebridge-temperature-sensor-dht",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Temperature accessory for RPi using DHT 11 or 22",
   "license": "Apache-2.0",
   "repository": {
@@ -34,11 +34,11 @@
     "node-dht-sensor": "^0.4.3"
   },
   "resolutions": {
-    "got": "^11.8.5",
+    "got": "^12.1.0",
     "minimist": "^1.2.6"
   },
   "devDependencies": {
-    "@types/node": "^16.10.9",
+    "@types/node": "^18.0.1",
     "@types/node-dht-sensor": "^0.4.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
