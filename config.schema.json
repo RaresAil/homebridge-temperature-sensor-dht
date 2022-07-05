@@ -1,7 +1,6 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
-  "pluginType": "platform",
-  "singular": true,
+  "pluginAlias": "TemperatureAccessoryDHT",
+  "pluginType": "accessory",
   "schema": {
     "type": "object",
     "properties": {
@@ -9,7 +8,22 @@
         "title": "Name",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": "DHT Sensor"
+      },
+      "model": {
+        "title": "Model",
+        "type": "number",
+        "default": "11",
+        "oneOf": [
+          { "title": "11", "enum": [11] },
+          { "title": "22", "enum": [22] }
+        ],
+        "required": false
+      },
+      "pin": {
+        "title": "GPIO Pin",
+        "type": "number",
+        "required": false
       }
     }
   }

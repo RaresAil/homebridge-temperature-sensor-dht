@@ -1,34 +1,45 @@
 {
-  "private": true,
-  "displayName": "Plugin Name",
-  "name": "homebridge-plugin-name",
+  "displayName": "Temperature Accessory DHT",
+  "name": "homebridge-temperature-sensor-dht",
   "version": "1.0.0",
-  "description": "A short description about what your plugin does.",
+  "description": "A Temperature accessory for RPi using DHT 11 or 22",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/USERNAME/GITHUB_PROJECT_NAME.git"
+    "url": "git://github.com/RaresAil/homebridge-temperature-sensor-dht.git"
   },
   "bugs": {
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
+    "url": "https://github.com/RaresAil/homebridge-temperature-sensor-dht/issues"
   },
   "engines": {
     "node": ">=14.18.1",
     "homebridge": ">=1.3.5"
   },
+  "funding": {
+    "url": "https://www.paypal.com/donate/?hosted_button_id=5GM8SZ2YNVK5Q",
+    "type": "paypal"
+  },
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/**.ts --max-warnings=0",
     "watch": "npm run build && npm link && nodemon",
+    "dev": "npm run build && nodemon",
     "build": "rimraf ./dist && tsc",
     "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
     "homebridge-plugin"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "node-dht-sensor": "^0.4.3"
+  },
+  "resolutions": {
+    "got": "^11.8.5",
+    "minimist": "^1.2.6"
+  },
   "devDependencies": {
     "@types/node": "^16.10.9",
+    "@types/node-dht-sensor": "^0.4.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
