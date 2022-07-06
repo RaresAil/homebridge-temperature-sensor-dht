@@ -15,19 +15,32 @@ export class TemperatureAccessoryDHT {
 
     this.informationService = new this.api.hap.Service.AccessoryInformation()
       .setCharacteristic(this.api.hap.Characteristic.Manufacturer, 'DHT')
-      .setCharacteristic(this.api.hap.Characteristic.Model, 'Custom Model');
+      .setCharacteristic(
+        this.api.hap.Characteristic.SerialNumber,
+        `${model ?? '00'}-${pin ?? '00'}`
+      )
+      .setCharacteristic(
+        this.api.hap.Characteristic.Model,
+        `${model ?? 'Unknown'}`
+      );
 
-    if (
-      !model ||
-      (model !== 11 && model !== 22) ||
-      !pin ||
-      typeof pin !== 'number'
-    ) {
-      this.log.error(`Invalid model or pin: ${model} - ${pin}`);
-      return;
+    try {
+      if (
+        !model ||
+        (model !== 11 && model !== 22) ||
+        !pin ||
+        typeof pin !== 'number'
+      ) {
+        this.log.warn(`Invalid model or pin: ${model} - ${pin}`);
+        return;
+      }
+
+      this.sensor = new Sensor(this.log, this.api, this.config as Config);
+    } catch (error) {
+      this.log.error(
+        (error as { message: string })?.message ?? (error as string)
+      );
     }
-
-    this.sensor = new Sensor(this.log, this.api, this.config as Config);
   }
 
   getServices() {
