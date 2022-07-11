@@ -11,7 +11,7 @@ export class TemperatureAccessoryDHT {
     private readonly config: unknown,
     private readonly api: API
   ) {
-    const { model, pin } = this.config as Partial<Config>;
+    const { model, pin, adjustment } = this.config as Partial<Config>;
 
     this.informationService = new this.api.hap.Service.AccessoryInformation()
       .setCharacteristic(this.api.hap.Characteristic.Manufacturer, 'DHT')
@@ -35,7 +35,21 @@ export class TemperatureAccessoryDHT {
         return;
       }
 
-      this.sensor = new Sensor(this.log, this.api, this.config as Config);
+      let parsedAdjustment = +(adjustment || 0);
+      if (
+        Number.isNaN(parsedAdjustment) ||
+        !Number.isFinite(parsedAdjustment)
+      ) {
+        this.log.warn(`Invalid adjustment: ${parsedAdjustment}`);
+        parsedAdjustment = 0;
+      }
+
+      parsedAdjustment = Math.round(parsedAdjustment * 100) / 100;
+
+      this.sensor = new Sensor(this.log, this.api, {
+        ...(this.config as Config),
+        adjustment: parsedAdjustment
+      });
     } catch (error) {
       this.log.error(
         (error as { message: string })?.message ?? (error as string)

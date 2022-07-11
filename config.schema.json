@@ -24,6 +24,11 @@
         "title": "GPIO Pin",
         "type": "number",
         "required": false
+      },
+      "adjustment": {
+        "title": "Adjustment",
+        "type": "number",
+        "required": false
       }
     }
   }
