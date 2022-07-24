@@ -1,7 +1,7 @@
 {
   "displayName": "Temperature Accessory DHT",
   "name": "homebridge-temperature-sensor-dht",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Temperature accessory for RPi using DHT 11 or 22",
   "license": "Apache-2.0",
   "repository": {
@@ -28,7 +28,15 @@
     "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "dht",
+    "temperature",
+    "humidity",
+    "raspberry",
+    "pi",
+    "rpi",
+    "dht11",
+    "dht22"
   ],
   "dependencies": {
     "node-dht-sensor": "^0.4.3"
@@ -38,15 +46,15 @@
     "minimist": "^1.2.6"
   },
   "devDependencies": {
-    "@types/node": "^18.0.3",
+    "@types/node": "^18.0.6",
     "@types/node-dht-sensor": "^0.4.0",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
-    "eslint": "^8.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "eslint": "^8.20.0",
     "homebridge": "^1.3.5",
     "nodemon": "^2.0.19",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.3.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.4.4"
   }
 }
