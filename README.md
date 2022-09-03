@@ -28,6 +28,7 @@ You can add multiple dht sensors by having multiple accessories.
     {
       "accessory": "TemperatureAccessoryDHT",
       "name": "DHT Sensor",
+      "humidityAdjustment": 0, // e.g. -2 or 2
       "adjustment": 0, // e.g. -2 or 2
       "model": 22,
       "pin": 2
