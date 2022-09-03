@@ -68,6 +68,7 @@ export class Sensor {
       }
 
       const adjustedTemperature = temperature + this.config.adjustment;
+      const adjustedHumidity = humidity + this.config.humidityAdjustment;
 
       this.temperature =
         adjustedTemperature < -270
@@ -75,7 +76,12 @@ export class Sensor {
           : adjustedTemperature > 100
           ? 100
           : adjustedTemperature;
-      this.humidity = humidity < 0 ? 0 : humidity > 100 ? 100 : humidity;
+      this.humidity =
+        adjustedHumidity < 0
+          ? 0
+          : adjustedHumidity > 100
+          ? 100
+          : adjustedHumidity;
       this.fails = 0;
     } catch (error) {
       this.fails++;

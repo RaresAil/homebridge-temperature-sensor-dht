@@ -26,7 +26,12 @@
         "required": false
       },
       "adjustment": {
-        "title": "Adjustment",
+        "title": "Temperature Adjustment",
+        "type": "number",
+        "required": false
+      },
+      "humidityAdjustment": {
+        "title": "Humidity Adjustment",
         "type": "number",
         "required": false
       }
